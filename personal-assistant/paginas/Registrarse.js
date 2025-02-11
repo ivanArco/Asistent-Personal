@@ -57,7 +57,7 @@ const RegistroScreen = ({ navigation }) => {
         secureTextEntry
       />
 
-      <Button title="Registrarse" onPress={() => navigation.navigate('Inicio')} />
+      <Button title="Registrarse" onPress={() => navigation.navigate('Inicio',{name:name})} />
 
       <Text>¿Ya tienes cuenta?</Text>
       <Button
