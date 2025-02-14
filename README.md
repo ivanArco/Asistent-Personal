@@ -60,7 +60,8 @@ Para el funcionamiento del asistente virtual, se integrarán diversas APIs:
 Se usará **GitHub** para el control de versiones, siguiendo la estrategia de versionamiento.
 
 ## 🖌️ Wireframes/Mockups de la Aplicación
-
+- Aqui se pordra ver el maquetado de una forma mas detallada:
+-Puedes ver el wireframe aquí: [Ver Wireframes](https://miro.com/welcomeonboard/NkJMd2VpTVNmVVdQV1dVVXR2SmZmRnF2cmJoNThCVkNPYlpmV0dJc1lnTlVZb2lQN2ZkLzZDZXJDNVFpQUxSTlh4aWpnYTlCWmlrSTh5SmNzMndIRHFzVjJKcWRMS1h1VGdnY0RGUUVQVU1xVjZJV05DZ1NJUjZBanBtM3BsTlVBS2NFMDFkcUNFSnM0d3FEN050ekl3PT0hdjE=?share_link_id=467137938215)
 ## 📜 Diagrama de Flujo de la Aplicación
 Se incluye el diagrama de flujo que representa el funcionamiento general de la aplicación con iconos y títulos en formato .md.
 
