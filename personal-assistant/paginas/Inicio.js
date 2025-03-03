@@ -1,130 +1,145 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, TextInput, Button, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { Ionicons } from '@expo/vector-icons'; // Para los iconos de la barra de navegación
 
-const Incio = ({ name }) => {
-
-  //estado para la peticion del usuario
+const Inicio = ({ navigation }) => {
   const [peticion, setPeticion] = useState('');
-
-  //estado para almacenar las peticiones enviadas
   const [peticionesList, setPeticionesList] = useState([]);
+  const [respuestasList, setRespuestasList] = useState([]);
 
-  //estado par ALMACENAR las respuestas
-  const [respuestasList, setRespuestasList]= useState([]);
+  // const handlePeticion = () => {
+  //   if (peticion.trim()) {
+  //     setPeticionesList([...peticionesList, peticion]);
+  //     setRespuestasList([...respuestasList, obtenerRespuesta(peticion)]);
+  //     setPeticion('');
+  //   } else {
+  //     alert('Por favor ingresa una petición');
+  //   }
+  // };
 
-//API Key OpenWeatherMap 
-
-
-  // Función para manejar el envío de la petición
-  const handlePeticion = () => {
-    if (peticion.trim()) {
-      setPeticionesList([...peticionesList, peticion]); // Añadir la nueva petición a la lista
-        
-      //logica para generar la respuesta del asistente
-      const respuesta=obtenerRespuesta(peticion);
-
-       
-      // Añadir la respuesta a la lista
-      setRespuestasList([...respuestasList, respuesta]);
-
-      setPeticion(''); // Limpiar el campo de entrada después de enviar
-    } else {
-      alert('Por favor ingresa una petición');
-    }
-  };
-
-//funcion para obtener la respuesta del asistente
-const obtenerRespuesta= (peticion)=> {
-  const peticionLowerCase =peticion.toLowerCase();
-
-  //peticiones predeterminadas
-
-  if (peticionLowerCase.includes('hora')) {
-    return "La hora actual es:" + new Date().toLocaleTimeString();
-  } else if (peticionLowerCase.includes('fecha')) {
-    return "La fecha de hoy es:" + new Date().toLocaleDateString();
-  } else if (peticionLowerCase.includes('clima')){
-    return "Lo siento, no puedo consultar el clima en este momento.";
-  } else {
-    return "Lo siento, no entendi tu peticion. ¿Podrias intentar otra vez?";
-  }
-}
-
-
-
+  // const obtenerRespuesta = (peticion) => {
+  //   const peticionLowerCase = peticion.toLowerCase();
+  //   if (peticionLowerCase.includes('hora')) {
+  //     return "La hora actual es: " + new Date().toLocaleTimeString();
+  //   } else if (peticionLowerCase.includes('fecha')) {
+  //     return "La fecha de hoy es: " + new Date().toLocaleDateString();
+  //   } else if (peticionLowerCase.includes('clima')) {
+  //     return "Lo siento, no puedo consultar el clima en este momento.";
+  //   } else {
+  //     return "Lo siento, no entendí tu petición. ¿Podrías intentar otra vez?";
+  //   }
+  // };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.welcomeText}> Bienvenido {name}</Text>
+      <Text style={styles.welcomeText}>Bienvenido a Tu Asistente Personal</Text>
 
-      <Text style={styles.questionText}> ¿Que Quieres Hacer? </Text>
+      <View style={styles.questionContainer}>
+        <Text style={styles.questionText}>¿Qué quieres hacer...?</Text>
+        <Ionicons name="volume-high" size={20} color="#FFC107" style={styles.soundIcon} />
+      </View>
 
-      {/* Bloque para escribir la petición */}
-      <TextInput
-        style={styles.input}
-        placeholder="Escribe tu petición aquí..."
-        value={peticion}
-        onChangeText={setPeticion}
-      />
+      <Text style={styles.noTareasText}>Aún no hay Tareas Agregadas</Text>
 
-       {/* Botón para enviar la petición */}
-      <Button title="Enviar Petición" onPress={handlePeticion} />
 
-       {/* Mostrar las peticiones enviadas y las respuestas*/}
-      <ScrollView style={styles.peticionesContainer}>
+       <View style={styles.buttonContainer}>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => navigation.navigate('Agenda')}
+      >
+        <View style={styles.buttonContent}>
+          <Ionicons name="document-outline" size={20} color="#FFFFFF" />
+          <Text style={styles.addButtonText}>Agregar una Tarea</Text>
+        </View>
+      </TouchableOpacity>
+
+
+
+      <TouchableOpacity
+        style={[styles.addButton, { marginTop: 10 }]}
+        onPress={() => navigation.navigate('AgendaScreen')}
+      >
+        <View style={styles.buttonContent}>
+          <Ionicons name="list-outline" size={20} color="#FFFFFF" />
+          <Text style={styles.addButtonText}>Ver lista de tareas</Text>
+        </View>
+      </TouchableOpacity>
+      </View>
+
+
+      {/* <ScrollView style={styles.peticionesContainer}>
         {peticionesList.map((peticion, index) => (
           <View key={index} style={styles.peticionItem}>
             <Text style={styles.peticionText}>{peticion}</Text>
             <Text style={styles.respuestaText}>Respuesta: {respuestasList[index]}</Text>
           </View>
         ))}
-      </ScrollView>
+      </ScrollView> */}
+
+      <View style={styles.bottomNav}>
+        <Ionicons name="home" size={24} color="black" />
+        <Ionicons name="list" size={24} color="black" />
+        <Ionicons name="chatbubble" size={24} color="black" />
+        <Ionicons name="person" size={24} color="black" />
+      </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifycontent: 'center',
+    backgroundColor: 'white',
     alignItems: 'center',
-    backgroundColor: '#f8f9fa',
     padding: 20,
-
   },
-
   welcomeText: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 'bold',
-    color: '#007BFF',
+    textAlign: 'center',
+    marginVertical: 20,
+  },
+  questionContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
     marginBottom: 20,
-
   },
   questionText: {
-    fontzise: 18,
-    color: '#495057',
+    fontSize: 18,
     textAlign: 'center',
-    marginTop: 10,
+    color: '#333',
   },
-  
-  input: {
-    height: 40,
-    width: '100%',
-    marginVertical: 20,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 5,
-    borderColor: '#007BFF',
+  soundIcon: {
+    marginLeft: 5,
+  },
+  noTareasText: {
     fontSize: 16,
-    backgroundColor: '#fff',
+    color: '#888',
+    marginBottom: 20,
+  },
+  addButton: {
+    backgroundColor: '#FFC107',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    //flex: 1, // Para que los botones se expandan de forma uniforme
+    //alignItems: 'center',
+    //marginHorizontal: 5, // Agrega espacio entre los botones
+  },
+  addButtonText: {
+    fontSize: 16,
+    color: 'white',
+    fontWeight: 'bold',
+    marginLeft: 8,  // Espacio entre el icono y el texto
   },
   peticionesContainer: {
     marginTop: 20,
     width: '100%',
     maxHeight: 200,
+    
   },
   peticionItem: {
-    backgroundColor: '#e9ecef',
+    backgroundColor: '#f8f9fa',
     padding: 10,
     marginBottom: 10,
     borderRadius: 5,
@@ -138,7 +153,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#007BFF',
   },
+  bottomNav: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    backgroundColor: '#FFC107',
+    paddingVertical: 10,
+    position: 'absolute',
+    bottom: 0,
+  },
+  buttonContent: {
+    flexDirection: 'row',  // Alinea los elementos en una fila
+    alignItems: 'center',  // Alinea verticalmente el icono y el texto
+  },
+  
+});
 
-})
-
-export default Incio;
+export default Inicio;
