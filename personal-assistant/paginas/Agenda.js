@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Text, View, Button, TextInput, StyleSheet, Alert, TouchableOpacity, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import Entypo from '@expo/vector-icons/Entypo';
 
 const AgendaScreen = ({ navigation }) => {
   const [titulo, setTitulo] = useState('');
@@ -21,31 +22,35 @@ const AgendaScreen = ({ navigation }) => {
       alert('Por favor, completa todos los campos');
     }
   };
-    return (
+  return (
+    <View style={styles.container}>
+      <Text style={styles.welcomeText}>Agregar Pendiente</Text>
+
+      <TextInput
+        style={styles.input}
+        onChangeText={setTitulo}
+        value={titulo}
+        placeholder="Título"
+      />
+
+      <TextInput
+        style={styles.input}
+        onChangeText={setDescripcion}
+        value={descripcion}
+        placeholder="Descripción"
+      />
+
+      <TextInput
+        style={styles.input}
+        onChangeText={setFecha}
+        value={fecha}
+        placeholder="Fecha"
+      />
+
       <View style={styles.container}>
-        <Text style={styles.welcomeText}>Agregar Pendiente</Text>
-  
-        <TextInput
-          style={styles.input}
-          onChangeText={setTitulo}
-          value={titulo}
-          placeholder="Título"
-        />
-  
-        <TextInput
-          style={styles.input}
-          onChangeText={setDescripcion}
-          value={descripcion}
-          placeholder="Descripción"
-        />
-  
-        <TextInput
-          style={styles.input}
-          onChangeText={setFecha}
-          value={fecha}
-          placeholder="Fecha"
-        />
-  
+        <Entypo name="mic" size={70} color="#FFC107" />
+
+
         {/* Botón para agregar tarea */}
         <TouchableOpacity style={styles.addButton} onPress={agregarTarea}>
           <View style={styles.buttonContent}>
@@ -53,36 +58,59 @@ const AgendaScreen = ({ navigation }) => {
             <Text style={styles.addButtonText}>Guardar Tarea</Text>
           </View>
         </TouchableOpacity>
-  
-        {/* Lista de tareas */}
-        <FlatList
-          data={tareas}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <View style={styles.tareaContainer}>
-              <Text style={styles.tareaTitulo}>{item.titulo}</Text>
-              <Text>{item.descripcion}</Text>
-              <Text>{item.fecha}</Text>
-            </View>
-          )}
-        />
-  
-        {/* Menú de navegación inferior */}
-        <View style={styles.bottomNav}>
-          <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-            <Ionicons name="home" size={24} color="black" />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Agenda')}>
-            <Ionicons name="list" size={24} color="black" />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
-            <Ionicons name="chatbubble" size={24} color="black" />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-            <Ionicons name="person" size={24} color="black" />
-          </TouchableOpacity>
+
         </View>
+
+        <TouchableOpacity
+                style={[styles.addButton, { marginTop: 10 }]}
+                onPress={() => navigation.navigate('')}
+              >
+                <View style={styles.buttonContent}>
+                  <Ionicons name="list-outline" size={20} color="#FFFFFF" />
+                  <Text style={styles.addButtonText}>Ver lista de tareas</Text>
+                </View>
+              </TouchableOpacity>
+              
+
+
+      {/* Lista de tareas */}
+      <FlatList
+        data={tareas}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => (
+          <View style={styles.tareaContainer}>
+            <Text style={styles.tareaTitulo}>{item.titulo}</Text>
+            <Text>{item.descripcion}</Text>
+            <Text>{item.fecha}</Text>
+          </View>
+        )}
+      />
+
+      {/* Menú de navegación inferior */}
+      
+      <View style={styles.bottomNav}>
+        <TouchableOpacity onPress={() => navigation.navigate('Inicio')} style={styles.iconContainer}>
+          <Ionicons name="home" size={24} color="black" />
+          <Text style={styles.iconLabel}>Inicio</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Historial')} style={styles.iconContainer}>
+          <Ionicons name="list" size={24} color="black" />
+          <Text style={styles.iconLabel}>Consultas</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Busquedas')} style={styles.iconContainer}>
+           <Ionicons name="search-sharp" size={24} color="black" />
+          <Text style={styles.iconLabel}>Preguntar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Perfil')} style={styles.iconContainer}>
+          <Ionicons name="person-circle-sharp" size={24} color="black" />
+          <Text style={styles.iconLabel}>Perfil</Text>
+        </TouchableOpacity>
       </View>
+
+
+
+
+    </View>
   );
 };
 
@@ -104,6 +132,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 10,
+    marginTop:20,
   },
   welcomeText: {
     fontSize: 22,
@@ -131,7 +160,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
   },
-  
+  buttonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
+
+
 });
 
 export default AgendaScreen;

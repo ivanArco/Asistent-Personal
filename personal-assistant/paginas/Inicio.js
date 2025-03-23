@@ -7,28 +7,28 @@ const Inicio = ({ navigation }) => {
   const [peticionesList, setPeticionesList] = useState([]);
   const [respuestasList, setRespuestasList] = useState([]);
 
-  // const handlePeticion = () => {
+  //  const handlePeticion = () => {
   //   if (peticion.trim()) {
   //     setPeticionesList([...peticionesList, peticion]);
   //     setRespuestasList([...respuestasList, obtenerRespuesta(peticion)]);
-  //     setPeticion('');
-  //   } else {
+  //      setPeticion('');
+  //    } else {
   //     alert('Por favor ingresa una petición');
-  //   }
-  // };
+  //    }
+  //  };
 
-  // const obtenerRespuesta = (peticion) => {
-  //   const peticionLowerCase = peticion.toLowerCase();
-  //   if (peticionLowerCase.includes('hora')) {
-  //     return "La hora actual es: " + new Date().toLocaleTimeString();
-  //   } else if (peticionLowerCase.includes('fecha')) {
-  //     return "La fecha de hoy es: " + new Date().toLocaleDateString();
-  //   } else if (peticionLowerCase.includes('clima')) {
-  //     return "Lo siento, no puedo consultar el clima en este momento.";
-  //   } else {
-  //     return "Lo siento, no entendí tu petición. ¿Podrías intentar otra vez?";
-  //   }
-  // };
+  //  const obtenerRespuesta = (peticion) => {
+  //    const peticionLowerCase = peticion.toLowerCase();
+  //    if (peticionLowerCase.includes('hora')) {
+  //      return "La hora actual es: " + new Date().toLocaleTimeString();
+  //    } else if (peticionLowerCase.includes('fecha')) {
+  //      return "La fecha de hoy es: " + new Date().toLocaleDateString();
+  //    } else if (peticionLowerCase.includes('clima')) {
+  //      return "Lo siento, no puedo consultar el clima en este momento.";
+  //    } else {
+  //      return "Lo siento, no entendí tu petición. ¿Podrías intentar otra vez?";
+  // }
+  //  };
 
   return (
     <View style={styles.container}>
@@ -42,46 +42,61 @@ const Inicio = ({ navigation }) => {
       <Text style={styles.noTareasText}>Aún no hay Tareas Agregadas</Text>
 
 
-       <View style={styles.buttonContainer}>
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={() => navigation.navigate('Agenda')}
-      >
-        <View style={styles.buttonContent}>
-          <Ionicons name="document-outline" size={20} color="#FFFFFF" />
-          <Text style={styles.addButtonText}>Agregar una Tarea</Text>
-        </View>
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.addButton}
+          onPress={() => navigation.navigate('Agenda')}
+        >
+          <View style={styles.buttonContent}>
+            <Ionicons name="document-outline" size={20} color="#FFFFFF" />
+            <Text style={styles.addButtonText}>Agregar una Tarea</Text>
+          </View>
+        </TouchableOpacity>
 
 
 
-      <TouchableOpacity
-        style={[styles.addButton, { marginTop: 10 }]}
-        onPress={() => navigation.navigate('AgendaScreen')}
-      >
-        <View style={styles.buttonContent}>
-          <Ionicons name="list-outline" size={20} color="#FFFFFF" />
-          <Text style={styles.addButtonText}>Ver lista de tareas</Text>
-        </View>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.addButton, { marginTop: 10 }]}
+          onPress={() => navigation.navigate('AgendaScreen')}
+        >
+          <View style={styles.buttonContent}>
+            <Ionicons name="list-outline" size={20} color="#FFFFFF" />
+            <Text style={styles.addButtonText}>Ver lista de tareas</Text>
+          </View>
+        </TouchableOpacity>
       </View>
 
 
-      {/* <ScrollView style={styles.peticionesContainer}>
+      {/* { <ScrollView style={styles.peticionesContainer}>
         {peticionesList.map((peticion, index) => (
           <View key={index} style={styles.peticionItem}>
             <Text style={styles.peticionText}>{peticion}</Text>
             <Text style={styles.respuestaText}>Respuesta: {respuestasList[index]}</Text>
           </View>
         ))}
-      </ScrollView> */}
+      </ScrollView> } */}
 
       <View style={styles.bottomNav}>
-        <Ionicons name="home" size={24} color="black" />
-        <Ionicons name="list" size={24} color="black" />
-        <Ionicons name="chatbubble" size={24} color="black" />
-        <Ionicons name="person" size={24} color="black" />
+        <TouchableOpacity onPress={() => navigation.navigate('Inicio')} style={styles.iconContainer}>
+          <Ionicons name="home" size={24} color="black" />
+          <Text style={styles.iconLabel}>Inicio</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Historial')} style={styles.iconContainer}>
+          <Ionicons name="list" size={24} color="black" />
+          <Text style={styles.iconLabel}>Consultas</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Busquedas')} style={styles.iconContainer}>
+           <Ionicons name="search-sharp" size={24} color="black" />
+          <Text style={styles.iconLabel}>Preguntar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Perfil')} style={styles.iconContainer}>
+          <Ionicons name="person-circle-sharp" size={24} color="black" />
+          <Text style={styles.iconLabel}>Perfil</Text>
+        </TouchableOpacity>
       </View>
+
+
+
     </View>
   );
 };
@@ -136,7 +151,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: '100%',
     maxHeight: 200,
-    
+
   },
   peticionItem: {
     backgroundColor: '#f8f9fa',
@@ -166,7 +181,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',  // Alinea los elementos en una fila
     alignItems: 'center',  // Alinea verticalmente el icono y el texto
   },
-  
+
 });
 
 export default Inicio;
