@@ -1,26 +1,22 @@
 import React, { useState } from 'react';
-import { Text, View, Button, StyleSheet, TextInput,TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Platform, Dimensions } from 'react-native';
 import LottieView from 'lottie-react-native';
-
-
 
 const HomeScreen = ({ navigation }) => {
   const [name, setName] = useState('');
 
   return (
-
     <View style={styles.container}>
-
-     <LottieView
-        source={require('./assets/robot.json')}
-        autoPlay
-        loop
-        style={styles.animation}
-      />
-    
+      <View style={styles.animationContainer}>
+        <LottieView
+          source={require('./assets/robot.json')}
+          autoPlay
+          loop
+          style={styles.animation}
+        />
+      </View>
       <Text style={styles.welcomeText}> Bienvenido a Tu Asistente Personal</Text>
       <Text style={styles.welcome}>Para continuar, necesito que me des un Nombre</Text>
-
       <TextInput
         style={styles.input}
         onChangeText={setName}
@@ -28,7 +24,6 @@ const HomeScreen = ({ navigation }) => {
         placeholder="Escribe tu nombre..."
       />
       <Text style={styles.Text}>Perfecto! Mi Nombre será: {name} </Text>
-
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('IniciarSesion')}
@@ -44,7 +39,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingTop: 30,  // Ajusta el espacio desde la parte superior
+    paddingTop: 30,
+    overflow: 'hidden', // Prevent content overflow
+  },
+  animationContainer: {
+    width: '100%',
+    height: 200, // Set a fixed height for the animation container
+    overflow: 'hidden', // Prevent overflow
   },
   input: {
     height: 40,
@@ -71,31 +72,26 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginVertical: 20,
   },
-  
   button: {
-    backgroundColor: '#FFC107', // Cambia el color de fondo
+    backgroundColor: '#FFC107',
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
   },
   buttonText: {
-    color: '#FFFFFF', // Cambia el color del texto
+    color: '#FFFFFF',
     fontSize: 18,
     fontWeight: 'bold',
   },
-
   animation: {
-    width: 300,  // Ajusta el tamaño de la animación en píxeles
-    height: 200, // Ajusta el tamaño de la animación en píxeles
-    position:'relative',
-    marginBottom:10,
+    width: '100%',
+    height: '100%',
   },
   text: {
     fontSize: 20,
     color: 'black',
-    zIndex: 1,  // Coloca el texto encima de la animación
+    zIndex: 1,
   },
-
 });
 
 export default HomeScreen;
