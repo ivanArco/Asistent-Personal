@@ -1,25 +1,35 @@
 import React, { useState } from 'react';
-import { Text, View, Button, StyleSheet, TextInput } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Platform, Dimensions } from 'react-native';
+import LottieView from 'lottie-react-native';
 
 const HomeScreen = ({ navigation }) => {
-  const [name, setName] = useState(''); 
+  const [name, setName] = useState('');
 
   return (
     <View style={styles.container}>
-      <Text> Bienvenido a Tu Asistente Personal</Text>
-      <Text>Dame un Nombre a tu Gusto</Text>
-
+      <View style={styles.animationContainer}>
+        <LottieView
+          source={require('./assets/robot.json')}
+          autoPlay
+          loop
+          style={styles.animation}
+        />
+      </View>
+      <Text style={styles.welcomeText}> Bienvenido a Tu Asistente Personal</Text>
+      <Text style={styles.welcome}>Para continuar, necesito que me des un Nombre</Text>
       <TextInput
-        style={styles.input} 
-        onChangeText={setName} 
+        style={styles.input}
+        onChangeText={setName}
         value={name}
+        placeholder="Escribe tu nombre..."
       />
-      <Text>Perfecto! Mi Nombre será: {name} </Text>
-
-      <Button
-        title="Comenzar..."
+      <Text style={styles.Text}>Perfecto! Mi Nombre será: {name} </Text>
+      <TouchableOpacity
+        style={styles.button}
         onPress={() => navigation.navigate('IniciarSesion')}
-      />
+      >
+        <Text style={styles.buttonText}>Comenzar...</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -27,8 +37,15 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 30,
+    overflow: 'hidden', // Prevent content overflow
+  },
+  animationContainer: {
+    width: '100%',
+    height: 200, // Set a fixed height for the animation container
+    overflow: 'hidden', // Prevent overflow
   },
   input: {
     height: 40,
@@ -36,6 +53,44 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     width: 250,
+  },
+  welcomeText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginVertical: 4,
+  },
+  welcome: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginVertical: 20,
+  },
+  Text: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginVertical: 20,
+  },
+  button: {
+    backgroundColor: '#FFC107',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  animation: {
+    width: '100%',
+    height: '100%',
+  },
+  text: {
+    fontSize: 20,
+    color: 'black',
+    zIndex: 1,
   },
 });
 
