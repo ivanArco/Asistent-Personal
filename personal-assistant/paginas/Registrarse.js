@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity  } from 'react-native';
 
 const RegistroScreen = ({ navigation }) => {
   // Estados para manejar los valores de los campos
@@ -20,7 +20,7 @@ const RegistroScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Registro</Text>
+      <Text style={styles.welcomeText}>Registro</Text>
 
       <Text>Nombre</Text>
       <TextInput
@@ -57,13 +57,18 @@ const RegistroScreen = ({ navigation }) => {
         secureTextEntry
       />
 
-      <Button title="Registrarse" onPress={() => navigation.navigate('Inicio')} />
+<TouchableOpacity style={styles.addButton} 
+onPress={() => navigation.navigate('IniciarSesion')}
+>
+        <Text style={styles.addButtonText}>Registrar</Text>
+      </TouchableOpacity>
 
       <Text>¿Ya tienes cuenta?</Text>
-      <Button
-        title="Iniciar sesión"
-        onPress={() => navigation.navigate('IniciarSesion')}
-      />
+      <TouchableOpacity style={styles.addButton} 
+onPress={() => navigation.navigate('IniciarSesion')}
+>
+        <Text style={styles.addButtonText}>Iniciar Sesión</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -82,6 +87,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderRadius: 5,
+  },
+  welcomeText: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginVertical: 20,
+  },
+  addButton: {
+    backgroundColor: '#FFC107',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
   },
 });
 

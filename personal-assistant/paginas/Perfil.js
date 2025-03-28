@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // Para los iconos de la barra de navegación
 
-const Inicio = ({ navigation }) => {
+const PerfilScreen = ({ navigation }) => {
   const [peticion, setPeticion] = useState('');
   const [peticionesList, setPeticionesList] = useState([]);
   const [respuestasList, setRespuestasList] = useState([]);
@@ -32,49 +32,43 @@ const Inicio = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.welcomeText}>Bienvenido a Tu Asistente Personal</Text>
+      <Text style={styles.welcomeText}>Perfil</Text>
 
-      <View style={styles.questionContainer}>
-        <Text style={styles.questionText}>¿Qué quieres hacer...?</Text>
-        <Ionicons name="volume-high" size={20} color="#FFC107" style={styles.soundIcon} />
+      
+      <TouchableOpacity onPress={() => navigation.navigate('Perfil')} style={styles.iconContainer}>
+          <Ionicons name="person-circle-sharp" size={100} color="black" />
+        </TouchableOpacity>
+
+        <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={[styles.addButton, styles.whiteButton]}
+          onPress={() => navigation.navigate('Home')}
+        >
+          <View style={styles.buttonContent}>
+            <Text style={styles.addButtonText}>Acerca de</Text>
+            <Ionicons name="information-circle-outline" size={24} color="black" />
+          </View>
+        </TouchableOpacity>
+
       </View>
 
-      <Text style={styles.noTareasText}>Aún no hay Tareas Agregadas</Text>
+
 
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.addButton}
-          onPress={() => navigation.navigate('Agenda')}
+          onPress={() => navigation.navigate('Home')}
         >
           <View style={styles.buttonContent}>
-            <Ionicons name="document-outline" size={20} color="#FFFFFF" />
-            <Text style={styles.addButtonText}>Agregar una Tarea</Text>
+            <Text style={styles.addButtonText}>Cerrar Sesion</Text>
           </View>
         </TouchableOpacity>
 
-
-
-        <TouchableOpacity
-          style={[styles.addButton, { marginTop: 10 }]}
-          onPress={() => navigation.navigate('AgendaScreen')}
-        >
-          <View style={styles.buttonContent}>
-            <Ionicons name="list-outline" size={20} color="#FFFFFF" />
-            <Text style={styles.addButtonText}>Ver lista de tareas</Text>
-          </View>
-        </TouchableOpacity>
       </View>
 
 
-      {/* { <ScrollView style={styles.peticionesContainer}>
-        {peticionesList.map((peticion, index) => (
-          <View key={index} style={styles.peticionItem}>
-            <Text style={styles.peticionText}>{peticion}</Text>
-            <Text style={styles.respuestaText}>Respuesta: {respuestasList[index]}</Text>
-          </View>
-        ))}
-      </ScrollView> } */}
+    
 
       <View style={styles.bottomNav}>
         <TouchableOpacity onPress={() => navigation.navigate('Inicio')} style={styles.iconContainer}>
@@ -114,24 +108,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginVertical: 20,
   },
-  questionContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  questionText: {
-    fontSize: 18,
-    textAlign: 'center',
-    color: '#333',
-  },
-  soundIcon: {
-    marginLeft: 5,
-  },
-  noTareasText: {
-    fontSize: 16,
-    color: '#888',
-    marginBottom: 20,
-  },
+ 
+
+ 
   addButton: {
     backgroundColor: '#FFC107',
     paddingVertical: 10,
@@ -143,7 +122,7 @@ const styles = StyleSheet.create({
   },
   addButtonText: {
     fontSize: 16,
-    color: 'white',
+    color: '#000000',
     fontWeight: 'bold',
     marginLeft: 8,  // Espacio entre el icono y el texto
   },
@@ -153,21 +132,7 @@ const styles = StyleSheet.create({
     maxHeight: 200,
 
   },
-  peticionItem: {
-    backgroundColor: '#f8f9fa',
-    padding: 10,
-    marginBottom: 10,
-    borderRadius: 5,
-  },
-  peticionText: {
-    fontSize: 16,
-    color: '#333',
-    marginBottom: 5,
-  },
-  respuestaText: {
-    fontSize: 16,
-    color: '#007BFF',
-  },
+  
   bottomNav: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -177,11 +142,31 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
   },
-  buttonContent: {
-    flexDirection: 'row',  // Alinea los elementos en una fila
-    alignItems: 'center',  // Alinea verticalmente el icono y el texto
+  buttonContainer: {
+    marginVertical: 10, // Espacio entre los botones
   },
+  buttonContent: {
+    flexDirection: 'row', // Los elementos (ícono y texto) estarán en fila
+    alignItems: 'center', // Centra verticalmente el ícono y el texto
+  },
+  icon: {
+    marginRight: 20, // Espacio entre el ícono y el texto
+  },
+  addButtonText: {
+    color: 'white', // Color del texto
+    fontSize: 16, // Tamaño del texto
+    marginLeft: 10, // Espacio entre el ícono y el texto
+  },
+  whiteButton: {
+    backgroundColor: 'white', // Fondo blanco para el botón
+    borderWidth: 1, // Agrega borde para diferenciarlo
+    borderColor: 'black', // Borde verde (el mismo color que el otro botón)
+  },
+  whiteButtonText: {
+    color: '#000000', // Texto verde en el botón blanco
+  },
+ 
 
 });
 
-export default Inicio;
+export default PerfilScreen;
