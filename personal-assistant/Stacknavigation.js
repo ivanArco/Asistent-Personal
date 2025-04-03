@@ -8,26 +8,56 @@ import AgendaScreen from './paginas/Agenda';
 import PerfilScreen from './paginas/Perfil';
 import HistorialScreen from './paginas/Historial';
 import SearchScreen from './paginas/Busquedas';
-;
 
 const Stack = createStackNavigator();
 
-const Stacknavigator = () => {
+const StackNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="IniciarSesion" component={IniciarSesionScreen} />
-        <Stack.Screen name="Registro" component={RegistroScreen} />
-        <Stack.Screen name="Inicio" component={Inicio} />
-        <Stack.Screen name="Agenda" component={AgendaScreen} />
-        <Stack.Screen name="Historial" component={HistorialScreen} />
-        <Stack.Screen name="Perfil" component={PerfilScreen} />
-        <Stack.Screen name="Busquedas" component={SearchScreen} />
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen 
+          name="Inicio" 
+          component={Inicio} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="IniciarSesion" 
+          component={IniciarSesionScreen} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="Registro" 
+          component={RegistroScreen} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="Home" 
+          component={HomeScreen} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="Agenda" 
+          component={AgendaScreen} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="Historial" 
+          component={HistorialScreen} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="Perfil" 
+          component={PerfilScreen} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="Busquedas" 
+          component={SearchScreen} 
+          options={{ headerShown: false }} 
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
-export default Stacknavigator;
-
+export default StackNavigator;

@@ -27,9 +27,13 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-native": "^0.78.1",
+    "react-native-gesture-handler": "^2.24.0",
+    "react-native-paper": "^5.13.1",
     "react-native-safe-area-context": "^5.3.0",
     "react-native-screens": "^4.9.2",
+    "react-native-status-bar-height": "^2.6.0",
     "react-native-web": "~0.19.13",
+    "setimmediate": "^1.0.5",
     "yet": "^0.1.0"
   },
   "devDependencies": {

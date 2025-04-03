@@ -7,28 +7,7 @@ const PerfilScreen = ({ navigation }) => {
   const [peticionesList, setPeticionesList] = useState([]);
   const [respuestasList, setRespuestasList] = useState([]);
 
-  //  const handlePeticion = () => {
-  //   if (peticion.trim()) {
-  //     setPeticionesList([...peticionesList, peticion]);
-  //     setRespuestasList([...respuestasList, obtenerRespuesta(peticion)]);
-  //      setPeticion('');
-  //    } else {
-  //     alert('Por favor ingresa una petición');
-  //    }
-  //  };
 
-  //  const obtenerRespuesta = (peticion) => {
-  //    const peticionLowerCase = peticion.toLowerCase();
-  //    if (peticionLowerCase.includes('hora')) {
-  //      return "La hora actual es: " + new Date().toLocaleTimeString();
-  //    } else if (peticionLowerCase.includes('fecha')) {
-  //      return "La fecha de hoy es: " + new Date().toLocaleDateString();
-  //    } else if (peticionLowerCase.includes('clima')) {
-  //      return "Lo siento, no puedo consultar el clima en este momento.";
-  //    } else {
-  //      return "Lo siento, no entendí tu petición. ¿Podrías intentar otra vez?";
-  // }
-  //  };
 
   return (
     <View style={styles.container}>
