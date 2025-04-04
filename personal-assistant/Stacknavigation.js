@@ -8,6 +8,7 @@ import AgendaScreen from './paginas/Agenda';
 import PerfilScreen from './paginas/Perfil';
 import HistorialScreen from './paginas/Historial';
 import SearchScreen from './paginas/Busquedas';
+import ListaDeTareas  from './paginas/ListaTareas';
 
 const Stack = createStackNavigator();
 
@@ -55,6 +56,11 @@ const StackNavigator = () => {
           component={SearchScreen} 
           options={{ headerShown: false }} 
         />
+        <Stack.Screen
+  name="ListaTareas" // Cambia "ListaTareas" a "ListaDeTareas"
+  component={ListaDeTareas}
+  options={{headerShown:false}}
+/>
       </Stack.Navigator>
     </NavigationContainer>
   );

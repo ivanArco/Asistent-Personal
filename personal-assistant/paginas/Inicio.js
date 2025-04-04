@@ -56,14 +56,14 @@ const Inicio = ({ navigation }) => {
 
 
         <TouchableOpacity
-          style={[styles.addButton, { marginTop: 10 }]}
-          onPress={() => navigation.navigate('AgendaScreen')}
-        >
-          <View style={styles.buttonContent}>
-            <Ionicons name="list-outline" size={20} color="#FFFFFF" />
-            <Text style={styles.addButtonText}>Ver lista de tareas</Text>
-          </View>
-        </TouchableOpacity>
+  style={[styles.addButton, { marginTop: 10 }]}
+  onPress={() => navigation.navigate('ListaTareas')}
+>
+  <View style={styles.buttonContent}>
+    <Ionicons name="list-outline" size={20} color="#FFFFFF" />
+    <Text style={styles.addButtonText}>Ver lista de tareas</Text>
+  </View>
+</TouchableOpacity>
       </View>
 
 
