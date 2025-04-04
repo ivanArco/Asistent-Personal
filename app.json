@@ -21,6 +21,11 @@
         "backgroundColor": "#ffffff"
       }
     },
-    "description": "App que pueda atender sus necesidades\n"
+    "description": "App que pueda atender sus necesidades\n",
+    "extra": {
+      "eas": {
+        "projectId": "1abf69e9-a3b5-46a8-9d17-7a393448fd3c"
+      }
+    }
   }
 }
