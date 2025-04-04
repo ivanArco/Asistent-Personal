@@ -50,7 +50,7 @@ export function IniciarSesionScreen({ navigation }) {
       
       // Intentar obtener el usuario por correo
       try {
-        const usuario = await getData('http://192.168.100.57:3000/api/users/byCorreo/' + email.value);
+        const usuario = await getData('http://localhost:3000/api/users/byCorreo/' + email.value);
         addDebugInfo('Respuesta del servidor recibida');
         
         // Verificar la respuesta

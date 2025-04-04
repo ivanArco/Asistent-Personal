@@ -37,7 +37,7 @@ const ListaDeTareas = ({ navigation }) => {
       console.log('Cargando tareas para el usuario ID:', idUsuario);
       
       // Obtener datos de la API
-      const resultado = await getData(`http://192.168.100.57:3000/api/pendientes/usuario/${idUsuario}`);
+      const resultado = await getData(`http://localhost:3000/api/pendientes/usuario/${idUsuario}`);
       console.log('Datos recibidos de la API:', resultado);
       
       if (resultado && resultado.data && Array.isArray(resultado.data)) {
@@ -83,7 +83,7 @@ const ListaDeTareas = ({ navigation }) => {
       console.log('Datos de actualización:', datosActualizacion);
       
       const resultado = await updateData(
-        `http://192.168.100.57:3000/api/pendientes/update/${tareaSeleccionada.id}`, 
+        `http://localhost:3000/api/pendientes/update/${tareaSeleccionada.id}`, 
         datosActualizacion
       );
 
@@ -106,52 +106,36 @@ const ListaDeTareas = ({ navigation }) => {
   };
 
   // Función para eliminar tarea
-  const eliminarTarea = async () => {
-    try {
-      Alert.alert(
-        'Eliminar Tarea',
-        '¿Estás seguro de que quieres eliminar esta tarea?',
-        [
-          {
-            text: 'Cancelar',
-            style: 'cancel'
-          },
-          {
-            text: 'Eliminar',
-            style: 'destructive',
-            onPress: async () => {
-              try {
-                console.log('Intentando eliminar tarea con ID:', tareaSeleccionada.id);
-                
-                const resultado = await deleteData(
-                  `http://192.168.100.57:3000/api/pendientes/delete/${tareaSeleccionada.id}`
-                );
+ // Modificación de la función eliminarTarea
 
-                console.log('Respuesta de eliminación:', resultado);
+ const eliminarTarea = async () => {
+  if (!tareaSeleccionada || !tareaSeleccionada.id) {
+    Alert.alert('Error', 'No se pudo identificar la tarea a eliminar');
+    return;
+  }
 
-                if (!resultado.error) {
-                  console.log('Eliminación exitosa, recargando tareas...');
-                  await cargarTareas();
-                  setModalVisible(false);
-                  Alert.alert('Éxito', 'La tarea ha sido eliminada');
-                } else {
-                  console.error('Error al eliminar:', resultado.message);
-                  Alert.alert('Error', resultado.message || 'No se pudo eliminar la tarea');
-                }
-              } catch (error) {
-                console.error('Error en onPress de eliminar:', error);
-                Alert.alert('Error', 'No se pudo eliminar la tarea');
-              }
-            }
-          }
-        ]
-      );
-    } catch (error) {
-      console.error('Error en eliminarTarea:', error);
-      Alert.alert('Error', 'No se pudo eliminar la tarea');
+  try {
+    const tareaId = tareaSeleccionada.id;
+    
+    const resultado = await deleteData(
+      `http://localhost:3000/api/pendientes/delete/${tareaId}`
+    );
+
+    console.log('Respuesta de eliminación:', resultado);
+
+    if (!resultado.error) {
+      setModalVisible(false);
+      setTareaSeleccionada(null);
+      await cargarTareas();
+      Alert.alert('Éxito', 'La tarea ha sido eliminada correctamente');
+    } else {
+      Alert.alert('Error', resultado.message || 'No se pudo eliminar la tarea');
     }
-  };
-
+  } catch (error) {
+    console.error('Error en proceso de eliminación:', error);
+    Alert.alert('Error', 'No se pudo eliminar la tarea. Por favor, intente nuevamente.');
+  }
+};
   // Cargar tareas al montar el componente
   useEffect(() => {
     cargarTareas();
@@ -207,7 +191,7 @@ const ListaDeTareas = ({ navigation }) => {
       console.log('Datos para cambiar estado:', datosActualizacion);
       
       const resultado = await updateData(
-        `http://192.168.100.57:3000/api/pendientes/update/${tarea.id}`, 
+        `http://localhost:3000/api/pendientes/update/${tarea.id}`, 
         datosActualizacion
       );
 

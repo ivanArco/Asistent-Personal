@@ -41,7 +41,7 @@ const PerfilScreen = ({ navigation }) => {
             
             if (userId) {
                 // Llamar a la API para obtener detalles del usuario
-                const response = await axios.get(`http://192.168.100.57:3000/api/users/byId/${userId}`);
+                const response = await axios.get(`http://localhost:3000/api/users/byId/${userId}`);
                 
                 if (response.data) {
                     setUsuario({
@@ -124,7 +124,7 @@ const PerfilScreen = ({ navigation }) => {
 
             // Llamar a la API para actualizar
             const response = await axios.put(
-                `http://192.168.100.57:3000/api/users/update/${usuario.id}`, 
+                `http://localhost:3000/api/users/update/${usuario.id}`, 
                 datosActualizacion
             );
 

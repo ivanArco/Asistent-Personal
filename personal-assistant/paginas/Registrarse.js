@@ -36,44 +36,70 @@ export function RegistroScreen({ navigation }) {
   const { getData, setData } = useFetch();
 
   const onSignUpPressed = async () => {
+    console.log("1. Iniciando proceso de registro");
     
-      const nameError = nameValidator(name.value);
-      const edadError = edadValidator(edad.value);
-      const emailError = emailValidator(email.value);
-      const passwordError = passwordValidator(password.value);
+    const nameError = nameValidator(name.value);
+    const edadError = edadValidator(edad.value);
+    const emailError = emailValidator(email.value);
+    const passwordError = passwordValidator(password.value);
   
-      if (emailError || edadError || passwordError || nameError) {
-        setName({ ...name, error: nameError });
-        setEdad({ ...edad, error: edadError });
-        setEmail({ ...email, error: emailError });
-        setPassword({ ...password, error: passwordError });
-        return;
-      }
+    if (emailError || edadError || passwordError || nameError) {
+      console.log("2. Error en validaciones");
+      setName({ ...name, error: nameError });
+      setEdad({ ...edad, error: edadError });
+      setEmail({ ...email, error: emailError });
+      setPassword({ ...password, error: passwordError });
+      return;
+    }
   
-      const usuario = await getData('http://localhost:3000/api/users/byCorreo/' + email.value);
-      if (usuario.error) return;
-      const { data } = usuario;
-      if (data.length > 0) return;
-
+    try {
+      // Saltamos la verificación previa ya que las rutas no existen
+      console.log("3. Preparando nuevo usuario para registro");
       const nuevoUsuario = {
         Nombre: name.value,
         Edad: edad.value,
         Correo: email.value,
         Password: password.value,
       }
+      console.log("4. Datos de nuevo usuario:", nuevoUsuario);
   
-        const nuevo = await setData('http://localhost:3000/api/users/add', nuevoUsuario);
+      console.log("5. Enviando solicitud para crear usuario");
+      const nuevo = await setData('http://localhost:3000/api/users/add', nuevoUsuario);
+      console.log("6. Respuesta de creación:", nuevo);
   
-        if (nuevo.error) {
-          Alert.alert('Error', 'Ocurrió un error al crear el usuario');
-          return;
+      if (nuevo.error) {
+        // Si el servidor devuelve un error, podría ser porque el usuario ya existe
+        console.log("7. Error al crear usuario:", nuevo.message);
+        
+        // Comprueba si el mensaje de error contiene información sobre duplicación
+        if (nuevo.message && nuevo.message.includes("duplicate") || 
+            nuevo.message && nuevo.message.includes("ya existe")) {
+          Alert.alert('Error', 'Ya existe un usuario con este correo electrónico');
+        } else {
+          Alert.alert('Error', 'Ocurrió un error al crear el usuario: ' + nuevo.message);
         }
+        return;
+      }
   
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'Inicio' }],
-        })
+      console.log("8. Usuario creado exitosamente, redirigiendo");
+      // Guardar el ID del usuario si lo devuelve la API
+      if (nuevo.data && nuevo.data._id) {
+        try {
+          await AsyncStorage.setItem('UserID', nuevo.data._id.toString());
+          console.log("ID de usuario guardado:", nuevo.data._id);
+        } catch (storageError) {
+          console.error("Error al guardar ID:", storageError);
+        }
+      }
       
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Inicio' }],
+      });
+    } catch (error) {
+      console.error("Error en el proceso de registro:", error);
+      Alert.alert('Error', 'Ocurrió un error inesperado durante el registro');
+    }
   }
   
 

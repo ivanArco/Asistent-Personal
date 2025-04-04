@@ -40,7 +40,7 @@ const AgendaScreen = ({ navigation }) => {
           setUserID(userIdFromStorage);
           
           // Obtener tareas del servidor para este usuario
-          const tareasFromServer = await getData(`http://192.168.100.57:3000/api/pendientes/usuario/${userIdFromStorage}`);
+          const tareasFromServer = await getData(`http://localhost:3000/api/pendientes/usuario/${userIdFromStorage}`);
           if (Array.isArray(tareasFromServer)) {
             console.log("Tareas obtenidas:", tareasFromServer);
             setTareas(tareasFromServer);
@@ -86,7 +86,7 @@ const AgendaScreen = ({ navigation }) => {
       };
       
       try {
-        const tareaGuardada = await setData('http://192.168.100.57:3000/api/pendientes/add', nuevaTarea);
+        const tareaGuardada = await setData('http://localhost:3000/api/pendientes/add', nuevaTarea);
         console.log("Tarea guardada:", tareaGuardada);
         
         // Asegurarse de que la tarea guardada tenga los nombres de propiedades correctos para el FlatList
